@@ -1,31 +1,30 @@
-const path = require('path');
+var path = require('path');
 
-// Load ORM
-const Sequelize = require('sequelize');
+// Cargar ORM
+var Sequelize = require('sequelize');
 
-
-// To use SQLite data base:
-//    DATABASE_URL = sqlite:quizzes.sqlite
-// To use  Heroku Postgres data base:
+// Para usar en local BBDD SQLite:
+//    DATABASE_URL = sqlite:///
+//    DATABASE_STORAGE = quizzes.sqlite
+// Para usar en Heroku BBDD Postgres:
 //    DATABASE_URL = postgres://user:passwd@host:port/database
 
-const url = process.env.DATABASE_URL || "sqlite:quizzes.sqlite";
+var url, storage;
 
-const sequelize = new Sequelize(url);
+if (!process.env.DATABASE_URL) {
+    url = "sqlite:///";
+    storage = "quizzes.sqlite";
+} else {
+    url = process.env.DATABASE_URL;
+    storage = process.env.DATABASE_STORAGE || "";
+}
 
-// Import the definition of the Quiz Table from quiz.js
-sequelize.import(path.join(__dirname, 'quiz'));
-
-// Session
-sequelize.import(path.join(__dirname,'session'));
-
-// Create tables
-sequelize.sync()
-.then(() => console.log('Data Bases created successfully'))
-.catch(error => {
-    console.log("Error creating the data base tables:", error);
-    process.exit(1);
-});
+var sequelize = new Sequelize(url, {storage: storage});
 
 
-module.exports = sequelize;
+
+// Importar la definicion de la tabla Quiz de quiz.js
+var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
+
+
+exports.Quiz = Quiz; // exportar definición de tabla Quiz

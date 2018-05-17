@@ -1,2 +1,2 @@
-# quiz_2018
-Proyecto CORE 2018
+# quiz_2017
+Proyecto CORE 2017

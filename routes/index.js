@@ -1,31 +1,28 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
 
-const quizController = require('../controllers/quiz');
-
-const url = process.env.DATABASE_URL || "sqlite:quizzes.sqlite";
+var quizController = require('../controllers/quiz_controller');
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-// Credits page.
-router.get('/credits', (req, res, next) => {
+// Pagina de creditos
+router.get('/credits', function(req, res, next) {
     res.render('credits');
 });
 
-// Play page.
-router.get('/quizzes/random_play', (req, res, next) => {
-    res.render('quizzes/random_play');
+// Pagina de ayuda
+router.get('/help', function(req, res, next) {
+    res.render('help');
 });
 
-
-// Autoload for routes using :quizId
+// Autoload de rutas que usen :quizId
 router.param('quizId', quizController.load);
 
 
-// Routes for the resource /quizzes
+// Definición de rutas de /quizzes
 router.get('/quizzes',                     quizController.index);
 router.get('/quizzes/:quizId(\\d+)',       quizController.show);
 router.get('/quizzes/new',                 quizController.new);
@@ -36,6 +33,7 @@ router.delete('/quizzes/:quizId(\\d+)',    quizController.destroy);
 
 router.get('/quizzes/:quizId(\\d+)/play',  quizController.play);
 router.get('/quizzes/:quizId(\\d+)/check', quizController.check);
-
+router.get('/quizzes/randomplay',	quizController.randomplay);
+router.get('/quizzes/randomcheck/:quizId(\\d+)',	quizController.randomcheck);
 
 module.exports = router;
