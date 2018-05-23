@@ -1,0 +1,42 @@
+
+<ul>
+    <% for (var i in tips) { %>
+        <% var tip = tips[i]; %>
+
+        <% var accepted = tip.accepted; %>
+        <% var isAdmin = session.user && session.user.isAdmin; %>
+        <% var isQuizAuthor = session.user && quizAuthorId && quizAuthorId === session.user.id; %>
+	<% var isTipAuthor = session.user && tip.Author.username && tip.Author.username === session.user.username; %>
+
+        <% if (accepted || isAdmin || isQuizAuthor || isTipAuthor) { %>
+
+            <li>
+                <%= tip.text; %>
+		
+                     Pista generada por:
+                                <span id="autor"> 
+                                <%= tip.Author.username %>
+                                </span>
+
+                  
+
+                <% if (!accepted && (isAdmin || isQuizAuthor)) { %>
+
+                      <a href="/quizzes/<%= quizId %>/tips/<%= tip.id %>/accept?_method=PUT">
+                          <button>Aceptar</button>
+                      </a>
+
+                <% } %>
+
+                <% if (isAdmin || isQuizAuthor || isTipAuthor) { %>
+
+                      <a href="/quizzes/<%= quizId %>/tips/<%= tip.id %>?_method=DELETE">
+                           <button>Borrar</button>
+                      </a>
+
+                <% } %>
+             </li>
+         <% } %>
+
+    <% } %>
+</ul>
