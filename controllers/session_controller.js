@@ -34,7 +34,7 @@ exports.deleteExpiredUserSession = function(req, res, next) {
 // Middleware: Se requiere hacer login.
 //
 // Si el usuario ya hizo login anteriormente entonces existira
-// el objeto user en req.session, por lo que continuo con los demas
+// el objeto user en req.session, por lo que continuo con los demás
 // middlewares o rutas.
 // Si no existe req.session.user, entonces es que aun no he hecho
 // login, por lo que me redireccionan a una pantalla de login.
@@ -54,7 +54,7 @@ exports.loginRequired = function (req, res, next) {
 // MW que permite pasar solamente si el usuario logeado es admin.
 exports.adminRequired = function(req, res, next){
 
-    var isAdmin      = req.session.user.isAdmin;
+    var isAdmin = req.session.user.isAdmin;
 
     if (isAdmin) {
         next();

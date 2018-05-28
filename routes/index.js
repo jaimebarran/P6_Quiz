@@ -136,6 +136,14 @@ router.delete('/quizzes/:quizId(\\d+)/tips/:tipId(\\d+)',
     sessionController.loginRequired,
     tipController.destroy);
 
+// router.get('/quizzes/:quizId/tips/:tipId/edit',
+//     sessionController.loginRequired,
+//     tipController.edit());
+// router.put('/quizzes/:quizId/tips/:tipId',
+//     sessionController.loginRequired,
+//     quizController.adminOrAuthorRequired,
+//     tipController.edit());
+
 // Pagina de ayuda
 router.get('/help', function(req, res, next) {
     res.render('help');

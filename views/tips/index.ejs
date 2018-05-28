@@ -14,7 +14,13 @@
                 <%= tip.text; %>
 		
                      (by <span id="autor"><%= tip.Author.username %></span>)
+                        <% if (isAdmin || isTipAuthor) { %>
 
+                        <a href="/tips/edit.ejs<%= quizId %>/tips/<%= tip.id %>?_method=PUT">
+                            <button>Edit</button>
+                        </a>
+
+                        <% } %>
                   
 
                 <% if (!accepted && (isAdmin || isQuizAuthor)) { %>

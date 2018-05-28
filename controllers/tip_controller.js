@@ -1,6 +1,6 @@
 var models = require('../models');
 var Sequelize = require('sequelize');
-
+var url = require('url');
 
 // Autoload la pista asociado a :tipId
 exports.load = function (req, res, next, tipId) {
@@ -99,3 +99,29 @@ exports.destroy = function (req, res, next) {
         next(error);
     });
 };
+
+
+// // Se requiere hacer login
+// exports.edit = function (req, res, next) {
+//     if (req.session.user) {
+//         next();
+//     } else {
+//         res.redirect('/session?redir=' + (req.param('redir') || req.url));
+//     }
+// };
+//
+//
+// // adminOrAuthorRequired (es muy parecido al de quiz_controller.js)
+// // MW que permite acciones solamente si al usuario logeado es admin o es el autor del quiz.
+// exports.update = function(req, res, next){
+//
+//     var isAdmin  = req.session.user.isAdmin;
+//     var isAuthor = req.quiz.AuthorId === req.session.user.id;
+//
+//     if (isAdmin || isAuthor) {
+//         next();
+//     } else {
+//         console.log('Operación prohibida: El usuario logeado no es el autor de la pista, ni un administrador.');
+//         res.send(403);
+//     }
+// };
