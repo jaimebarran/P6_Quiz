@@ -6,22 +6,21 @@
         <% var accepted = tip.accepted; %>
         <% var isAdmin = session.user && session.user.isAdmin; %>
         <% var isQuizAuthor = session.user && quizAuthorId && quizAuthorId === session.user.id; %>
-	<% var isTipAuthor = session.user && tip.Author.username && tip.Author.username === session.user.username; %>
+	    <% var isTipAuthor = session.user && tip.Author.username && tip.Author.username === session.user.username; %>
 
         <% if (accepted || isAdmin || isQuizAuthor || isTipAuthor) { %>
 
             <li>
                 <%= tip.text; %>
-		
+
                      (by <span id="autor"><%= tip.Author.username %></span>)
-                        <% if (isAdmin || isTipAuthor) { %>
 
-                        <a href="/tips/edit.ejs<%= quizId %>/tips/<%= tip.id %>?_method=PUT">
-                            <button>Edit</button>
-                        </a>
+                    <% if (isAdmin || isTipAuthor) { %>
+                    <a href="/tips/<%= tip.id %>/edit">
+                        <button>Edit</button>
+                    </a>
+                    <% } %>
 
-                        <% } %>
-                  
 
                 <% if (!accepted && (isAdmin || isQuizAuthor)) { %>
 
@@ -38,6 +37,8 @@
                       </a>
 
                 <% } %>
+
+
              </li>
          <% } %>
 
